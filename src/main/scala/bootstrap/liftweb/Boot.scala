@@ -35,24 +35,25 @@ class Boot {
     // you don't need to use Mapper to use Lift... use
     // any ORM you want
     Schemifier.schemify(true, Schemifier.infoF _, User)
+    Schemifier.schemify(true, Schemifier.infoF _, Book)
+    Schemifier.schemify(true, Schemifier.infoF _, Author)
+    Schemifier.schemify(true, Schemifier.infoF _, News)
+    Schemifier.schemify(true, Schemifier.infoF _, Content)
 
     // where to search snippet
     LiftRules.addToPackages("code")
 
     // Build SiteMap
-    val entries = List(
-      Menu.i("Home") / "index", // the simple way to declare a menu
-
-      // more complex because this menu allows anything in the
-      // /static path to be visible
-      Menu(Loc("Static", Link(List("static"), true, "/static/index"), 
-	       "Static Content"))) :::
-    // the User management menu items
-    User.sitemap
-
+    val homeLoc = Loc("HomePage", "index" :: Nil, "Home Page", Hidden)
+    val aboutLoc = Loc("AboutPage", "about" :: Nil, "About Page")
+    var menu = Menu(homeLoc) :: Menu(aboutLoc) :: User.sitemap
+   
+    val crudMenu = Book.menus ::: Author.menus ::: News.menus ::: Content.menus
+    menu = menu ::: crudMenu
+    
     // set the sitemap.  Note if you don't want access control for
     // each page, just comment this line out.
-    LiftRules.setSiteMap(SiteMap(entries:_*))
+    LiftRules.setSiteMap(SiteMap(menu:_*))
 
     //Show the spinny image when an Ajax call starts
     LiftRules.ajaxStart =
