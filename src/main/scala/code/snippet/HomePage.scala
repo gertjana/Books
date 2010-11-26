@@ -6,6 +6,7 @@ import _root_.net.liftweb.util._
 import _root_.net.liftweb.common._
 import _root_.java.util.Date
 import code.lib._
+import code.util._
 import Helpers._
 import code.model._
 import _root_.net.liftweb.mapper._
@@ -20,14 +21,17 @@ class Homepage {
   }
 
   def news(in: NodeSeq) : NodeSeq = {
-    val articles = News.findAll(By(News.showOnHomepage, true), OrderBy(News.createdAt, Descending), MaxRows[News](5))
+    val articles = News.findAll(
+            By(News.showOnHomepage, true), 
+            OrderBy(News.createdAt, Descending), 
+            MaxRows[News](5))
     
     def bindArticles(template: NodeSeq): NodeSeq = {
       articles.flatMap {
                 case (news) => bind("article", template, 
 							"title" -> news.title, 
 							"author" -> news.author, 
-							"summary" -> news.summary,
+							"summary" -> StringHelper.unescapeXml(news.summary),
 							"created" -> news.createdAt,
 							"updated" -> news.updatedAt)
       }
