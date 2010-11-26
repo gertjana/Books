@@ -20,7 +20,7 @@ class Homepage {
   }
 
   def news(in: NodeSeq) : NodeSeq = {
-    val articles = News.findAll(By(News.showOnHomepage, true))
+    val articles = News.findAll(By(News.showOnHomepage, true), OrderBy(News.createdAt, Descending), MaxRows[News](5))
     
     def bindArticles(template: NodeSeq): NodeSeq = {
       articles.flatMap {
