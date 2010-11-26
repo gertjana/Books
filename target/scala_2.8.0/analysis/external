@@ -1,8 +1,0 @@
-#External Dependencies
-#Fri Nov 05 13:40:53 CET 2010
-/Users/gertjan/NetBeansProjects/booksweblift/project/boot/scala-2.8.0/lib/scala-library.jar=src/main/scala/bootstrap/liftweb/Boot.scala\:src/main/scala/code/lib/DependencyFactory.scala\:src/main/scala/code/model/User.scala\:src/main/scala/code/snippet/HelloWorld.scala
-/Users/gertjan/NetBeansProjects/booksweblift/lib_managed/scala_2.8.0/compile/lift-mapper_2.8.0-2.1.jar=src/main/scala/bootstrap/liftweb/Boot.scala\:src/main/scala/code/model/User.scala
-/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/classes.jar=src/main/scala/bootstrap/liftweb/Boot.scala\:src/main/scala/code/lib/DependencyFactory.scala\:src/main/scala/code/model/User.scala\:src/main/scala/code/snippet/HelloWorld.scala
-/Users/gertjan/NetBeansProjects/booksweblift/lib_managed/scala_2.8.0/compile/lift-webkit_2.8.0-2.1.jar=src/main/scala/bootstrap/liftweb/Boot.scala\:src/main/scala/code/lib/DependencyFactory.scala
-/Users/gertjan/NetBeansProjects/booksweblift/lib_managed/scala_2.8.0/compile/lift-common_2.8.0-2.1.jar=src/main/scala/bootstrap/liftweb/Boot.scala\:src/main/scala/code/model/User.scala\:src/main/scala/code/snippet/HelloWorld.scala
-/Users/gertjan/NetBeansProjects/booksweblift/lib_managed/scala_2.8.0/compile/lift-util_2.8.0-2.1.jar=src/main/scala/bootstrap/liftweb/Boot.scala\:src/main/scala/code/lib/DependencyFactory.scala\:src/main/scala/code/model/User.scala\:src/main/scala/code/snippet/HelloWorld.scala
