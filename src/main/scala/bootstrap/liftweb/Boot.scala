@@ -10,7 +10,7 @@ import sitemap._
 import Loc._
 import mapper._
 
-import code.model._
+import net.addictivesoftware.books.web.model._
 
 
 /**
@@ -41,12 +41,13 @@ class Boot {
     Schemifier.schemify(true, Schemifier.infoF _, Content)
 
     // where to search snippet
-    LiftRules.addToPackages("code")
+    LiftRules.addToPackages("net.addictivesoftware.books.web")
 
     // Build SiteMap
     val homeLoc = Loc("HomePage", "index" :: Nil, "Home Page", Hidden)
     val aboutLoc = Loc("AboutPage", "about" :: Nil, "About Page")
-    var menu = Menu(homeLoc) :: Menu(aboutLoc) :: User.sitemap
+    val booksLoc = Loc("Bookspage", "book_list" :: Nil, "My Books")
+    var menu = Menu(homeLoc) :: Menu(aboutLoc) :: Menu(booksLoc) :: User.sitemap
    
     val crudMenu = Book.menus ::: Author.menus ::: News.menus ::: Content.menus
     menu = menu ::: crudMenu
