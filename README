@@ -1,8 +1,9 @@
 Install Java, Simple Build Tool, and Git
 
 Clone this repository with:
-
 git clone git://github.com/gertjana/Books.git
+
+optionally setup your database connections in src/resources/props/default.props
 
 Then cd into Books/ and type:
 sbt
