@@ -9,7 +9,7 @@ body {
 
 .container {
 	margin:20px;
-	width:100%;
+	width:1000px;
 }
 
 .edit_error_class {
@@ -274,4 +274,32 @@ body {
 
 .feedback {
     color : red;
+}
+
+.userinfo {
+    float:right;
+}
+
+.userinfo a {
+    padding-right : 15px;
+}
+
+.booklist h3 {
+    margin: 0px;
+    color:#036;
+}
+
+.booklist h4 {
+    margin: 0px;
+    margin-bottom:5px;
+}
+
+.booklist .book img {
+	width: 50px;
+	height: 80px;
+	float:left;
+}
+.booklist .book .info {
+	float:left;
+
 }
