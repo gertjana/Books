@@ -229,14 +229,13 @@ body {
 
 .book .info {
     float:left;
-    width:400px;
+    width:550px;
     margin-left:20px;
 }
 .book .info .title {
     color : #69c;
     font-size:12px;
     font-weight : bold;
-    width:400px;
     padding-bottom:5px;
 }
 
@@ -283,7 +282,9 @@ body {
 .userinfo a {
     padding-right : 15px;
 }
-
+.booklist {
+    width:100%;
+}
 .booklist h3 {
     margin: 0px;
     color:#036;
