@@ -295,8 +295,8 @@ body {
 }
 
 .booklist .book img {
-	width: 50px;
-	height: 80px;
+	width: 25px;
+	height: 45px;
 	float:left;
 }
 .booklist .book .info {
