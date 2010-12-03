@@ -1,5 +1,5 @@
-db.driver=com.mysql.jdbc.Driver
-db.url=jdbc:mysql://localhost/Books
-db.user=books
-db.password=b00ks
+#db.driver=com.mysql.jdbc.Driver
+#db.url=jdbc:mysql://localhost/Books
+#db.user=username
+#db.password=password
 
