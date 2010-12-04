@@ -290,6 +290,9 @@ body {
     color:#036;
 }
 
+.booklist h3 a {
+	text-decoration:none;
+}
 .booklist h4 {
     margin: 0px;
     margin-bottom:5px;
@@ -304,3 +307,26 @@ body {
 	float:left;
 
 }
+
+.bookdetail {
+    width:100%;
+}
+.bookdetail h3 {
+    margin: 0px;
+    color:#036;
+}
+
+.bookdetail h4 {
+    margin: 0px;
+    margin-bottom:5px;
+}
+
+.bookdetail .book img {
+	float:left;
+}
+.bookdetail .book .info {
+	float:left;
+	width:400px;
+}
+
+

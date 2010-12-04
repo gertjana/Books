@@ -46,8 +46,9 @@ class Boot {
     // Build SiteMap
     val homeLoc = Loc("HomePage", "index" :: Nil, "Home Page", Hidden)
     val aboutLoc = Loc("AboutPage", "about" :: Nil, "About Page")
-    val booksLoc = Loc("Bookspage", "book_list" :: Nil, "My Books")
-    var menu = Menu(homeLoc) :: Menu(aboutLoc) :: Menu(booksLoc) :: User.sitemap
+    val booksLoc = Loc("Bookspage", "book_list" :: Nil, "Books")
+    val bookLoc = Loc("Bookpage", "book" :: Nil, "Book", Hidden)
+    var menu = Menu(homeLoc) :: Menu(aboutLoc) :: Menu(booksLoc) :: Menu(bookLoc) :: User.sitemap
    
     val crudMenu = Book.menus ::: Author.menus ::: News.menus ::: Content.menus
     menu = menu ::: crudMenu
