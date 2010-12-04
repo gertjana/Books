@@ -68,6 +68,9 @@ class Boot {
     // Force the request to be UTF-8
     LiftRules.early.append(_.setCharacterEncoding("UTF-8"))
 
+    // Sets the output to HTML5
+    //LiftRules.htmlProperties.default.set((r: Req) => new Html5Properties(r.userAgent)) 
+
     // What is the function to test if a user is logged in?
     LiftRules.loggedInTest = Full(() => User.loggedIn_?)
 
