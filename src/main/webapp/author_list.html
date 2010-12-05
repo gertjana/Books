@@ -1,0 +1,23 @@
+<lift:surround with="default" at="content">
+      <lift:authorpage.paginate>
+        <nav:first/> | <nav:prev /> | <!--<nav:allpages/>|-->  <nav:next/>  | <nav:last/> | <nav:records />
+      </lift:authorpage.paginate> 
+    <hr />
+    <div class="authorlist">
+      <lift:authorpage.list>
+	<authors:list>
+          <div class="author">
+            <img src="/images/noauthor.gif" />
+            <div class="info">
+        	<h3><a author:detail=""><author:fullname /></a></h3>
+            	<h4><author:birthdate /></h4>
+            </div>
+          </div>
+        </authors:list>
+      </lift:authorpage.list>
+    </div>
+	<hr/>
+      <lift:authorpage.paginate>
+        <nav:first/> | <nav:prev /> | <!--<nav:allpages/>|-->  <nav:next/>  | <nav:last/> | <nav:records />
+      </lift:authorpage.paginate> 
+</lift:surround>

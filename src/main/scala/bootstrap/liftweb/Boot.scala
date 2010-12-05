@@ -48,7 +48,9 @@ class Boot {
     val aboutLoc = Loc("AboutPage", "about" :: Nil, "About Page")
     val booksLoc = Loc("Bookspage", "book_list" :: Nil, "Books")
     val bookLoc = Loc("Bookpage", "book" :: Nil, "Book", Hidden)
-    var menu = Menu(homeLoc) :: Menu(aboutLoc) :: Menu(booksLoc) :: Menu(bookLoc) :: User.sitemap
+    val authorsLoc = Loc("Authorspage", "author_list" :: Nil, "Authors")
+    val authorLoc = Loc("Authorpage", "author" :: Nil, "Author", Hidden)
+    var menu = Menu(homeLoc) :: Menu(aboutLoc) :: Menu(booksLoc) :: Menu(bookLoc) :: Menu(authorsLoc) :: Menu(authorLoc) :: User.sitemap
    
     val crudMenu = Book.menus ::: Author.menus ::: News.menus ::: Content.menus
     menu = menu ::: crudMenu

@@ -329,4 +329,47 @@ body {
 	width:400px;
 }
 
+.authorlist {
+    width:100%;
+}
+.authorlist h3 {
+    margin: 0px;
+    color:#036;
+}
 
+.authorlist h3 a {
+	text-decoration:none;
+}
+.authorlist h4 {
+    margin: 0px;
+    margin-bottom:5px;
+}
+
+.authorlist .author .info {
+	float:left;
+
+}
+.author {
+	float:left;
+
+}
+
+.author h3 {
+	margin:0px;
+}
+
+.author h4 {
+	margin:0px;
+	color: #036;
+	width:550px;
+}
+
+.author h4 a {
+	text-decoration:none;
+}
+
+.authorlist .author img {
+	width: 45px;
+	height: 45px;
+	float:left;
+}
