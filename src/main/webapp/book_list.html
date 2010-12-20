@@ -1,26 +1,23 @@
 <lift:surround with="default" at="content">
-      <lift:Bookspage.paginate>
+    <lift:Bookspage.paginate>
         <nav:first/> | <nav:prev /> | <!--<nav:allpages/>|-->  <nav:next/>  | <nav:last/> | <nav:records />
-      </lift:Bookspage.paginate> 
+    </lift:Bookspage.paginate>
     <hr />
     <div class="booklist">
-      <lift:bookspage.list>
-	<books:list>
-          <div class="book">
-            <img book:imageurl="" />
-            <div class="info">
-	    <h3><a book:detail=""><book:title /></a></h3>
-            <h4><book:author /></h4>
-	    <!--<book:isbn /><br/>
-            <book:publisher /><br/>
-            <book.published /><br/>-->
-            </div>
-            </div>
-        </books:list>
-      </lift:bookspage.list>
+        <lift:bookspage.list>
+            <books:list>
+                <div class="book">
+                    <img book:imageurl="" />
+                    <div class="info">
+                        <h3><a book:detail=""><book:title /></a></h3>
+                        <h4><book:author /></h4>
+                    </div>
+                </div>
+            </books:list>
+        </lift:bookspage.list>
     </div>
-	<hr/>
-      <lift:Bookspage.paginate>
+    <hr/>
+    <lift:Bookspage.paginate>
         <nav:first/> | <nav:prev /> | <!--<nav:allpages/>|-->  <nav:next/>  | <nav:last/> | <nav:records />
-      </lift:Bookspage.paginate> 
+    </lift:Bookspage.paginate>
 </lift:surround>

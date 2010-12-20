@@ -1,6 +1,8 @@
 package net.addictivesoftware.books.web.util {
 
   import scala.xml.{Group, Unparsed}
+  import net.liftweb.util.Log
+
 
   object StringHelper extends StringHelper
 
@@ -10,6 +12,14 @@ package net.addictivesoftware.books.web.util {
       <xml:group>{
         Unparsed(text)
       }</xml:group>
+    }
+
+    def listToString(list:List[String]) = {
+      Log.info(list)
+      list match {
+        case head::tail => tail.foldLeft(head)(_ + ", " + _)
+        case Nil => ""
+      }
     }
 
   }

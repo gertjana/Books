@@ -25,7 +25,7 @@ class Bookspage extends PaginatorSnippet[Book] {
       page.flatMap {
                 book => bind("book", template, 
 			"title" -> book.title.is, 
-			"author" -> book.author.obj.map(_.fullName).openOr("No Author") , 
+			//"author" -> book.authors.obj.map(_.fullName).openOr("No Author") ,
 			AttrBindParam("imageurl",book.imageurl.is match { 
 						case("") => "/images/nocover.gif";
 						case _ => book.imageurl.is }, "src"),
@@ -43,7 +43,7 @@ class Bookspage extends PaginatorSnippet[Book] {
 
       case(Full(book)) => Helpers.bind("book", in, 
 			"title" -> book.title.is, 
-			"author" -> book.author.obj.map(_.fullName).openOr("No Author") , 
+			//"author" -> book.authors.obj.map(_.fullName).openOr("No Author") ,
 			"isbn" -> book.isbn.is,
 			"publisher" -> book.publisher.is,
 			"published" -> book.publishedYear,
