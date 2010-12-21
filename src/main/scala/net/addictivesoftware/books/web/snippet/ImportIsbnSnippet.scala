@@ -6,7 +6,6 @@ import http._
 import mapper.By
 import util._
 import Helpers._
-import js.JsCmds.SetHtml
 import xml.{Text, NodeSeq}
 import net.addictivesoftware.books.web.model.Book
 
@@ -21,35 +20,19 @@ import net.addictivesoftware.books.web.model.Book
       var alreadyInDb : String = "";
 
       def processIsbnNrs() = {
-        Log.info("posted   :"+isbnnrs)
         isbnnrs = ",".r.replaceAllIn(isbnnrs, " ")
-        Log.info("sanitized:"+isbnnrs)
         isbnnrs split " " map {addBook _}
       }
 
       def addBook(nr : String) {
         Book.find(By(Book.isbn, nr)) match {
-          case (Full(book)) =>
-          {
-            SetHtml("#m", Text(nr + " is already in db"))
-            alreadyInDb += nr
-          }
-          case (_) =>
-          {
-            Log.info("addding " + nr)
-            Book.create.isbn(nr).saveMe
-            SetHtml("#m", Text("added "+nr))
-          }
+          case (Full(book)) => alreadyInDb += nr
+          case (_) => Book.create.isbn(nr).saveMe
         }
         msg = saveMsg + " skipped: " + alreadyInDb
         isbnnrs = ""
-        SetHtml("#m", Text(msg))
-        Log.info("end")
+        S.warning(Text(msg))
       }
-
-      SetHtml("#m", Text("bla"))
-      SetHtml("m", Text("bla"))
-      SetHtml("m", Text("bla"))
 
       SHtml.ajaxForm(
         bind("entry", in,
