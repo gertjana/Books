@@ -12,7 +12,7 @@ class Author extends LongKeyedMapper[Author] with IdPK {
   object lastName extends MappedString(this, 100)
   object birthDate extends MappedDate(this)
 
-  object books extends HasManyThrough(this, Book, BookAuthor, BookAuthor.book, BookAuthor.author)
+  object books extends HasManyThrough(this, Book, BookAuthor, BookAuthor.author, BookAuthor.book)
 
   def fullName = {
     this.firstName + " " + this.lastName
