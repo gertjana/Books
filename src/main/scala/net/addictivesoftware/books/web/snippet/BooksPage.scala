@@ -25,7 +25,7 @@ class Bookspage extends PaginatorSnippet[Book] {
       page.flatMap {
                 book => bind("book", template, 
 			"title" -> book.title.is, 
-			//"author" -> book.authors.obj.map(_.fullName).openOr("No Author") ,
+			"author" -> StringHelper.listToString(book.authors.get.map(_.fullName)) ,
 			AttrBindParam("imageurl",book.imageurl.is match { 
 						case("") => "/images/nocover.gif";
 						case _ => book.imageurl.is }, "src"),
@@ -42,15 +42,16 @@ class Bookspage extends PaginatorSnippet[Book] {
     Book.findByKey(id.toLong) match {
 
       case(Full(book)) => Helpers.bind("book", in, 
-			"title" -> book.title.is, 
-			//"author" -> book.authors.obj.map(_.fullName).openOr("No Author") ,
-			"isbn" -> book.isbn.is,
-			"publisher" -> book.publisher.is,
-			"published" -> book.publishedYear,
-			AttrBindParam("imageurl",book.imageurl.is match { 
-						case("") => "/images/nocover.gif";
-						case _ => book.imageurl.is }, "src"))
-      case _ => <p> no book found with this id</p>  
+                "title" -> book.title.is,
+                "author" -> StringHelper.listToString(book.authors.get.map(_.fullName)) ,
+                "isbn" -> book.isbn.is,
+                "publisher" -> book.publisher.is,
+                "published" -> book.publishedYear,
+                AttrBindParam("imageurl",book.imageurl.is match {
+                      case("") => "/images/nocover.gif";
+                      case _ => book.imageurl.is }, "src"))
+      case _ =>
+        <p> no book found with this id</p>
     }
   }
 

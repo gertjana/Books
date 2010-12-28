@@ -15,7 +15,6 @@ package net.addictivesoftware.books.web.util {
     }
 
     def listToString(list:List[String]) = {
-      Log.info(list)
       list match {
         case head::tail => tail.foldLeft(head)(_ + ", " + _)
         case Nil => ""

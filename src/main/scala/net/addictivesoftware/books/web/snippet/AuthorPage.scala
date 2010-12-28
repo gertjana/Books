@@ -2,9 +2,9 @@ package net.addictivesoftware.books.web.snippet {
 
     import scala.xml.NodeSeq
     import net.liftweb._
+    import common._
     import http._
     import util._
-    import common._
     import Helpers._
     import net.addictivesoftware.books.web.model.{Book, Author, BookAuthor}
     import net.addictivesoftware.books.web.util.StringHelper
