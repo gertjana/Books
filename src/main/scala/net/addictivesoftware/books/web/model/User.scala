@@ -12,7 +12,6 @@ object User extends User with MetaMegaProtoUser[User] {
   override def fieldOrder = List(id, firstName, lastName, email,
   locale, timezone, password)
 
-  // comment this line out to require email validations
   override def skipEmailValidation = true
  
   override def lostPasswordMenuLoc = Empty
@@ -20,7 +19,7 @@ object User extends User with MetaMegaProtoUser[User] {
 }
 
 class User extends MegaProtoUser[User] {
-  def getSingleton = User // what's the "meta" server
+  def getSingleton = User
 
   override def toString = firstName + " " + lastName
 }
