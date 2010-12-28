@@ -2,14 +2,14 @@ package net.addictivesoftware.books.web.model {
 
   import net.liftweb.mapper._
 
-  class BookAuthor extends LongKeyedMapper[BookAuthor] with IdPK {
-    def getSingleton = BookAuthor
+  class BookUser extends LongKeyedMapper[BookUser] with IdPK {
+    def getSingleton = BookUser
     object book extends MappedLongForeignKey(this, Book)
-    object author extends MappedLongForeignKey(this, Author)
+    object user extends MappedLongForeignKey(this, User)
   }
 
-  object BookAuthor extends BookAuthor with LongKeyedMetaMapper[BookAuthor] {
-    def join(book : Book, author : Author) =
-      this.create.book(book).author(author).save
+  object BookUser extends BookUser with LongKeyedMetaMapper[BookUser] {
+    def join(book : Book, user : User) =
+      this.create.book(book).user(user).save
   }
 }
