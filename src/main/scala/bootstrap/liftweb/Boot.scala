@@ -34,12 +34,7 @@ class Boot {
     // Use Lift's Mapper ORM to populate the database
     // you don't need to use Mapper to use Lift... use
     // any ORM you want
-    Schemifier.schemify(true, Schemifier.infoF _, User)
-    Schemifier.schemify(true, Schemifier.infoF _, Book)
-    Schemifier.schemify(true, Schemifier.infoF _, Author)
-    Schemifier.schemify(true, Schemifier.infoF _, News)
-    Schemifier.schemify(true, Schemifier.infoF _, Content)
-    Schemifier.schemify(true, Schemifier.infoF _, BookAuthor)
+    Schemifier.schemify(true, Schemifier.infoF _, User, Book, Author, News, Content, BookAuthor, BookUser)
 
     // where to search snippet
     LiftRules.addToPackages("net.addictivesoftware.books.web")
