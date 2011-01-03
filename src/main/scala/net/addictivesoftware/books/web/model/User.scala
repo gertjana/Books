@@ -1,8 +1,13 @@
 package net.addictivesoftware.books.web.model {
 
 import net.liftweb.mapper._
-import net.liftweb.util._
 import net.liftweb.common._
+
+class User extends MegaProtoUser[User] {
+  def getSingleton = User
+
+  override def toString = firstName + " " + lastName
+}
 
 object User extends User with MetaMegaProtoUser[User] {
   override def dbTableName = "users" // define the DB table name
@@ -18,10 +23,6 @@ object User extends User with MetaMegaProtoUser[User] {
   
 }
 
-class User extends MegaProtoUser[User] {
-  def getSingleton = User
 
-  override def toString = firstName + " " + lastName
-}
 
 }
