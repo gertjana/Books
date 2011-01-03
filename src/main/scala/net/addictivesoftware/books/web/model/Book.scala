@@ -24,7 +24,7 @@ class Book extends LongKeyedMapper[Book] with IdPK {
 
   object link extends MappedString(this, 100)
 
-  object user extends HasManyThrough(this, User, BookUser, BookUser.user, BookUser.book)
+  object users extends HasManyThrough(this, User, BookUser, BookUser.user, BookUser.book)
 
 
 }
