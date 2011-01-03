@@ -7,40 +7,78 @@ import mapper.By
 import util._
 import Helpers._
 import xml.{Text, NodeSeq}
-import net.addictivesoftware.books.web.model.Book
+import net.addictivesoftware.books.web.model.{Book, BookUser, User}
 
   class ImportIsbn {
-    var count = 0;
-    var saveMsg:String = "added: " + count + " books "
-    var msg = "Enter a list of isbn nr's in here seperated by spaces"
-    var isbnnrs = ""
-    var m2 = S.attr("#m2") openOr "m2"
+    var count = 0
+    var skipped = 0
+    var notvalid = 0
+    var isbnNumbers = ""
 
-    def bulk(in: NodeSeq) : NodeSeq = {
+    def loggedInUser = User.currentUser
+
+    def form(in: NodeSeq) : NodeSeq = {
       var alreadyInDb : String = "";
 
       def processIsbnNrs() = {
-        isbnnrs = ",".r.replaceAllIn(isbnnrs, " ")
-        isbnnrs split " " map {addBook _}
+        isbnNumbers = ",".r.replaceAllIn(isbnNumbers, " ")
+        isbnNumbers = "\r\n".r.replaceAllIn(isbnNumbers, " ")
+        isbnNumbers = "\r".r.replaceAllIn(isbnNumbers, " ")
+        isbnNumbers = "\n".r.replaceAllIn(isbnNumbers, " ")
+        isbnNumbers = "\t".r.replaceAllIn(isbnNumbers, " ")
+
+        isbnNumbers split " " map {addBook _}
+        S.warning(Text("added: " + count + " , skipped: " + skipped + " , notvalid: " + notvalid))
+
       }
 
-      def addBook(nr : String) {
-        Book.find(By(Book.isbn, nr)) match {
-          case (Full(book)) => alreadyInDb += nr
-          case (_) => Book.create.isbn(nr).saveMe
+      def addBook(nrAsText : String) {
+
+        var nr : Long = nrAsText match {
+          case Long(x) => x
+          case _ => 0
         }
-        msg = saveMsg + " skipped: " + alreadyInDb
-        isbnnrs = ""
-        S.warning(Text(msg))
+
+        if (nr != 0) {
+          Book.find(By(Book.isbn, nrAsText)) match {
+            case (Full(book)) => {
+              addBookUser(book)
+              skipped += 1
+            }
+            case (_) => {
+              val book = Book.create.isbn(nrAsText)
+              book.save
+              BookUser.create.book(book).user(loggedInUser).save
+              count += 1
+            }
+          }
+        } else {
+          notvalid += 1
+        }
       }
 
-      SHtml.ajaxForm(
-        bind("entry", in,
-          "text" -> SHtml.textarea(isbnnrs, isbnnrs = _),
-          "submit" -> (SHtml.hidden(processIsbnNrs) ++ <input type="submit" value="Add"/>))
-      )
+
+      def addBookUser(book : Book) {
+        BookUser.find(By(BookUser.book, book), By(BookUser.user, loggedInUser)) match {
+          case (Full(BookUser)) => // book exists and is associated with user
+          case (_) => BookUser.create.book(book).user(loggedInUser).save
+        }
+      }
+
+      bind("entry", in,
+        "text" -> SHtml.textarea(isbnNumbers, isbnNumbers = _),
+        "submit" -> SHtml.submit("Add", processIsbnNrs))
     }
   }
+
+  object Long {
+    def unapply(s : String) : Option[Long] = try {
+      Some(s.toLong)
+    } catch {
+      case _ => None
+    }
+  }
+
 }
 
 
