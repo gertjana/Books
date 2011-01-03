@@ -30,14 +30,14 @@
 
       <div class="column span-6 colborder sidebar">
         <hr class="space" />
-        <lift:Menu.builder />	
-        <div>
-          <lift:Msgs showAll="true"/>
-          <hr class="space" />
-        </div>
+        <lift:Menu.builder />
       </div>
 
       <div class="column span-17 last">
+          <div>
+            <lift:Msgs showAll="true"/>
+            <hr class="space" />
+        </div>
         <lift:bind name="content" />
       </div>
 
