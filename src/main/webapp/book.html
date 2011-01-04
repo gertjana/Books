@@ -1,4 +1,4 @@
-<lift:surround with="default" at="content">
+<lift:surround with="default" at="content" xmlns:lift="http://liftweb.net/" xmlns:book="http://ns.addictivesoftware.net/books/book">
     <lift:bookspage.detail>
         <div class="bookdetail">
             <div class="book">
@@ -8,7 +8,8 @@
                     <h4><book:author /></h4>
                     <book:isbn /><br/>
                     <book:publisher /><br/>
-                    <book.published /><br/>
+                    <book:published /><br/>
+                    <book:add />
                 </div>
             </div>
         </div>
