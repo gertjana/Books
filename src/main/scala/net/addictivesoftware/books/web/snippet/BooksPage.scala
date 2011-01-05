@@ -18,9 +18,10 @@ class Bookspage extends PaginatorSnippet[Book] {
   def detailPage = "book?id=";
 
   def button(book : Book) : NodeSeq = {
-    User.loggedIn_? match {
-      case (true) => (SHtml.hidden(() => addToCollection(book)) ++ <input type="submit" value="add"/>)
-      case (_) => Text("")
+    if (User.loggedIn_?) {
+      SHtml.hidden(() => addToCollection(book)) ++ <input type="submit" value="Add to collection"></input>
+    } else {
+      <span></span>
     }
   }
 
