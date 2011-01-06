@@ -3,7 +3,6 @@ package net.addictivesoftware.books.web.model {
 import net.liftweb._
 import http._
 import mapper._
-import common._
 import sitemap.Loc._
 
 class Book extends LongKeyedMapper[Book] with IdPK {
@@ -12,10 +11,8 @@ class Book extends LongKeyedMapper[Book] with IdPK {
   def loggedInUser = User.currentUser
 
   object title extends MappedString(this, 100)
- 
-  object author extends LongMappedMapper[Book, Author](this, Author) {
-    override def validSelectValues = Full(Author.findAll.map(a => (a.id.is, a.lastName.is))) 
-  }
+
+  object authors extends HasManyThrough(this, Author, BookAuthor, BookAuthor.book, BookAuthor.author)
 
   object isbn extends MappedString(this, 20)
 
@@ -27,10 +24,7 @@ class Book extends LongKeyedMapper[Book] with IdPK {
 
   object link extends MappedString(this, 100)
 
-  object user extends LongMappedMapper(this, User) {
-    //override def dbDisplay_? = false	
-    override def beforeCreate = loggedInUser
-  }
+  object users extends HasManyThrough(this, User, BookUser, BookUser.user, BookUser.book)
 
 
 }

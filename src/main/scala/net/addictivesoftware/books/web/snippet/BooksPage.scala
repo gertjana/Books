@@ -2,11 +2,9 @@ package net.addictivesoftware.books.web.snippet {
 
 import scala.xml.{NodeSeq, Text}
 import net.liftweb._
+import common._
 import http._
 import util._
-import common._
-import _root_.java.util.Date
-import net.addictivesoftware.books.web.lib._
 import net.addictivesoftware.books.web.util._
 import Helpers._
 import net.addictivesoftware.books.web.model._
@@ -19,13 +17,22 @@ class Bookspage extends PaginatorSnippet[Book] {
 
   def detailPage = "book?id=";
 
+  def button(book : Book) : NodeSeq = {
+    if (User.loggedIn_?) {
+      SHtml.hidden(() => addToCollection(book)) ++ <input type="submit" value="Add to collection"></input>
+    } else {
+      <span></span>
+    }
+  }
+
+
   def list(in: NodeSeq) : NodeSeq = {
     
     def bindBooks(template: NodeSeq): NodeSeq = {
       page.flatMap {
                 book => bind("book", template, 
 			"title" -> book.title.is, 
-			"author" -> book.author.obj.map(_.fullName).openOr("No Author") , 
+			"author" -> StringHelper.listToString(book.authors.get.map(_.fullName)) ,
 			AttrBindParam("imageurl",book.imageurl.is match { 
 						case("") => "/images/nocover.gif";
 						case _ => book.imageurl.is }, "src"),
@@ -41,19 +48,41 @@ class Bookspage extends PaginatorSnippet[Book] {
     val id = S.param("id") openOr ""
     Book.findByKey(id.toLong) match {
 
-      case(Full(book)) => Helpers.bind("book", in, 
-			"title" -> book.title.is, 
-			"author" -> book.author.obj.map(_.fullName).openOr("No Author") , 
-			"isbn" -> book.isbn.is,
-			"publisher" -> book.publisher.is,
-			"published" -> book.publishedYear,
-			AttrBindParam("imageurl",book.imageurl.is match { 
-						case("") => "/images/nocover.gif";
-						case _ => book.imageurl.is }, "src"))
-      case _ => <p> no book found with this id</p>  
+      case(Full(book)) =>
+        SHtml.ajaxForm(
+          Helpers.bind("book", in,
+                "title" -> book.title.is,
+                "author" -> StringHelper.listToString(book.authors.get.map(_.fullName)) ,
+                "isbn" -> book.isbn.is,
+                "publisher" -> book.publisher.is,
+                "published" -> book.publishedYear,
+                AttrBindParam("imageurl",book.imageurl.is match {
+                      case("") => "/images/nocover.gif";
+                      case _ => book.imageurl.is }, "src"),
+                "add" -> button(book)
+          )
+        )
+
+      case _ =>
+        <p> no book found with this id</p>
     }
   }
 
+  def addToCollection(book : Book) = {
+    if (User.loggedIn_?) {
+      BookUser.find(By(BookUser.user, User.currentUser), By(BookUser.book, book)) match {
+        case (Full(bookuser)) => {
+          S.warning("Book already part of your collection")
+        }
+        case (_) => {
+          BookUser.create.user(User.currentUser).book(book).save
+          S.warning("added this book to your collection")
+        }
+      }
+    } else {
+
+    }
+  }
 
 }
 

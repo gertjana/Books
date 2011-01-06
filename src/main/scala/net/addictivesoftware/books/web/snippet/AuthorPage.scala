@@ -2,11 +2,12 @@ package net.addictivesoftware.books.web.snippet {
 
     import scala.xml.NodeSeq
     import net.liftweb._
+    import common._
     import http._
     import util._
-    import common._
     import Helpers._
-    import net.addictivesoftware.books.web.model._
+    import net.addictivesoftware.books.web.model.{Book, Author, BookAuthor}
+    import net.addictivesoftware.books.web.util.StringHelper
     import mapper._
     import net.liftweb.http.PaginatorSnippet
 
@@ -45,13 +46,13 @@ package net.addictivesoftware.books.web.snippet {
 
         def books(in: NodeSeq) : NodeSeq = {
             val id = S.param("id") openOr ""
-            val books = Book.findAll(By(Book.author, id.toLong), OrderBy(Book.title, Ascending))
 
+            val books = Book.findAll(In(Book.id ,BookAuthor.book, By(BookAuthor.author, id.toLong)))
             def bindBooks(template : NodeSeq): NodeSeq = {
                 books.flatMap {
                           book => bind("book", template,
                                     "title" -> book.title.is,
-                                    "author" -> book.author.obj.map(_.fullName).openOr("No Author") ,
+                                    "author" -> StringHelper.listToString(book.authors.get.map(_.fullName)),
                                     AttrBindParam("imageurl",book.imageurl.is match {
                                           case("") => "/images/nocover.gif";
                                           case _ => book.imageurl.is }, "src"),

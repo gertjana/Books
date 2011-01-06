@@ -1,8 +1,13 @@
 package net.addictivesoftware.books.web.model {
 
 import net.liftweb.mapper._
-import net.liftweb.util._
 import net.liftweb.common._
+
+class User extends MegaProtoUser[User] {
+  def getSingleton = User
+
+  override def toString = firstName + " " + lastName
+}
 
 object User extends User with MetaMegaProtoUser[User] {
   override def dbTableName = "users" // define the DB table name
@@ -12,17 +17,12 @@ object User extends User with MetaMegaProtoUser[User] {
   override def fieldOrder = List(id, firstName, lastName, email,
   locale, timezone, password)
 
-  // comment this line out to require email validations
   override def skipEmailValidation = true
  
   override def lostPasswordMenuLoc = Empty
   
 }
 
-class User extends MegaProtoUser[User] {
-  def getSingleton = User // what's the "meta" server
 
-  override def toString = firstName + " " + lastName
-}
 
 }

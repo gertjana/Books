@@ -34,11 +34,7 @@ class Boot {
     // Use Lift's Mapper ORM to populate the database
     // you don't need to use Mapper to use Lift... use
     // any ORM you want
-    Schemifier.schemify(true, Schemifier.infoF _, User)
-    Schemifier.schemify(true, Schemifier.infoF _, Book)
-    Schemifier.schemify(true, Schemifier.infoF _, Author)
-    Schemifier.schemify(true, Schemifier.infoF _, News)
-    Schemifier.schemify(true, Schemifier.infoF _, Content)
+    Schemifier.schemify(true, Schemifier.infoF _, User, Book, Author, News, Content, BookAuthor, BookUser)
 
     // where to search snippet
     LiftRules.addToPackages("net.addictivesoftware.books.web")
@@ -51,8 +47,12 @@ class Boot {
     val authorsLoc = Loc("Authorspage", "author_list" :: Nil, "Authors")
     val authorLoc = Loc("Authorpage", "author" :: Nil, "Author", Hidden)
     val authorBookLoc = Loc("AuthorBookpage", "author_books" :: Nil, "AuthorBooks", Hidden)
+    val importIsbnLoc = Loc("ImportIsbnPage", "import_isbn" :: Nil, "ImportIsbn", If(User.loggedIn_? _, ""))
+
+
     var menu = Menu(homeLoc) :: Menu(aboutLoc) :: Menu(booksLoc) ::
-               Menu(bookLoc) :: Menu(authorsLoc) :: Menu(authorLoc) :: Menu(authorBookLoc) ::
+               Menu(bookLoc) :: Menu(authorsLoc) :: Menu(authorLoc) ::
+               Menu(authorBookLoc) :: Menu(importIsbnLoc) ::
                User.sitemap
    
     val crudMenu = Book.menus ::: Author.menus ::: News.menus ::: Content.menus
@@ -74,7 +74,7 @@ class Boot {
     LiftRules.early.append(_.setCharacterEncoding("UTF-8"))
 
     // Sets the output to HTML5
-    //LiftRules.htmlProperties.default.set((r: Req) => new Html5Properties(r.userAgent)) 
+    LiftRules.htmlProperties.default.set((r: Req) => new Html5Properties(r.userAgent))
 
     // What is the function to test if a user is logged in?
     LiftRules.loggedInTest = Full(() => User.loggedIn_?)

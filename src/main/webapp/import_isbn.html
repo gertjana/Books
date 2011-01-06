@@ -1,0 +1,13 @@
+<lift:surround with="default" at="content"
+               xmlns:lift="http://liftweb.net"
+               xmlns:entry="http://www.addictivesoftware.net/books/isbn/entry">
+  <h3>Import a bunch of ISBN Numbers </h3>
+    <p>
+        Copy paste a list of isbn numbers here, separated by spaces, comma's or return's.<br>
+        Most barcode readers will work when this page is open and the focus is on this field.
+    </p>
+  <lift:ImportIsbn.form form="POST">
+    <entry:text><br>
+    <entry:submit>
+  </lift:ImportIsbn.form>
+ </lift:surround>
