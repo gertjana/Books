@@ -12,6 +12,12 @@ package net.addictivesoftware.books.web.util {
       }</xml:group>
     }
 
+    def listToString[A](list: List[A]): String = list match {
+      case head :: tail => tail.foldLeft(head)(_ + ", " + _)
+      case Nil => ""
+    }
+
+
   }
 
 }
