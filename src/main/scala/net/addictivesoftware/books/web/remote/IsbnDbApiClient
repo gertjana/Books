@@ -1,0 +1,10 @@
+package net.addictivesoftware.books.web.remote {
+
+
+  class IsbnDbApiClient extends ApiClient {
+
+  }
+
+
+
+}

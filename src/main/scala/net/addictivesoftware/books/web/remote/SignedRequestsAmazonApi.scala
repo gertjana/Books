@@ -1,22 +1,25 @@
-import _root_.java.net.URLEncoder;
-import _root_.java.text.DateFormat;
-import _root_.java.text.SimpleDateFormat;
-import _root_.java.util.Calendar;
-import _root_.java.util.TimeZone;
+package net.addictivesoftware.books.web.remote {
 
-import _root_.javax.crypto.spec.SecretKeySpec;
-import _root_.javax.crypto.Mac;
+  import _root_.java.net.URLEncoder
+  import net.liftweb.util.Props
+  import _root_.java.text.DateFormat;
+  import _root_.java.text.SimpleDateFormat;
+  import _root_.java.util.Calendar;
+  import _root_.java.util.TimeZone;
 
-import _root_.org.apache.commons.codec.binary.Base64;
+  import _root_.javax.crypto.spec.SecretKeySpec;
+  import _root_.javax.crypto.Mac;
 
-import scala.collection.immutable.SortedMap;
-import scala.collection.immutable.TreeMap;
+  import _root_.org.apache.commons.codec.binary.Base64;
 
-trait SignedRequestsAmazonApi {
+  import scala.collection.immutable.SortedMap;
+  import scala.collection.immutable.TreeMap;
 
-    val awsAccessKeyId = "YOUR ACCESS KEY";
-    val awsAssociateTagKey = "YOUR TAG";
-    val awsSecretKey = "YOUR SECRET KEY";
+  trait SignedRequestsAmazonApi {
+
+    val awsAccessKeyId = Props.get("amazon.accesskeyid") openOr ""
+    val awsAssociateTagKey = Props.get("amazon.tag") openOr ""
+    val awsSecretKey = Props.get("amazon.secretkey") openOr ""
 
     val UTF8_CHARSET = "UTF-8";
     val HMAC_SHA256_ALGORITHM = "HmacSHA256";
@@ -75,7 +78,7 @@ trait SignedRequestsAmazonApi {
 
     protected def canonicalize( sortedParamMap: SortedMap[String, String]): String = {
 
-      sortedParamMap.map[String] {
+      sortedParamMap.map {
         (key) => percentEncodeRfc3986( key._1 ) + "=" + percentEncodeRfc3986(key._2)
       }.reduceLeft[String]{ (acc, url) => acc + "&" + url }
 
@@ -88,4 +91,5 @@ trait SignedRequestsAmazonApi {
             case _ => throw new RuntimeException(UTF8_CHARSET + " is unsupported!")
         }
     }
+  }
 }
