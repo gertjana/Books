@@ -48,11 +48,12 @@ class Boot {
     val authorLoc = Loc("Authorpage", "author" :: Nil, "Author", Hidden)
     val authorBookLoc = Loc("AuthorBookpage", "author_books" :: Nil, "AuthorBooks", Hidden)
     val importIsbnLoc = Loc("ImportIsbnPage", "import_isbn" :: Nil, "ImportIsbn", If(User.loggedIn_? _, ""))
+    val myBooksLoc = Loc("MyBooksPage", "mybooks" :: Nil, "MyBooks", If(User.loggedIn_? _, ""))
 
 
     var menu = Menu(homeLoc) :: Menu(aboutLoc) :: Menu(booksLoc) ::
                Menu(bookLoc) :: Menu(authorsLoc) :: Menu(authorLoc) ::
-               Menu(authorBookLoc) :: Menu(importIsbnLoc) ::
+               Menu(authorBookLoc) :: Menu(importIsbnLoc) :: Menu(myBooksLoc) ::
                User.sitemap
    
     val crudMenu = Book.menus ::: Author.menus ::: News.menus ::: Content.menus
