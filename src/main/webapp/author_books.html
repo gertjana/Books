@@ -1,4 +1,8 @@
-<lift:surround with="default" at="content">
+<lift:surround with="default" at="content"
+        xmlns:lift="http://liftweb.net"
+        xmlns:author="http://ns.addictivesoftware.net/books/author"
+        xmlns:books="http://ns.addictivesoftware.net/books/books"
+        xmlns:book="http://ns.addictivesoftware.net/books/book">
     <div class="booklist">
         <lift:authorpage.author>
             <h2>Showing books for: <strong><author:fullname /></strong></h2>
