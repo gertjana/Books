@@ -373,3 +373,8 @@ body {
 	height: 45px;
 	float:left;
 }
+
+.messages {
+    color:red;
+    padding : 5px;
+}
