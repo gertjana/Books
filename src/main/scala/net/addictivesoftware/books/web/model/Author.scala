@@ -4,6 +4,11 @@ import net.liftweb._
 import http._
 import mapper._
 import sitemap.Loc._
+import net.liftweb.json._
+import net.liftweb.json.JsonDSL._
+import net.liftweb.json.JsonAST._
+import scala.xml.Node
+import net.addictivesoftware.books.web.util.StringHelper
 
 class Author extends LongKeyedMapper[Author] with IdPK {
   def getSingleton = Author
@@ -26,6 +31,17 @@ object Author extends Author with LongKeyedMetaMapper[Author] with CRUDify[Long,
 	override def createMenuLocParams = If(User.loggedIn_? _, RedirectResponse("/user_mgt/login")) :: super.createMenuLocParams
 	override def showAllMenuLocParams = If(User.loggedIn_? _, RedirectResponse("/user_mgt/login")) :: super.showAllMenuLocParams
 
+  def toJSON (author : Author) : JValue = {
+
+    ("author" ->
+      ("id" -> author.id.is) ~
+      ("firstname" -> author.firstName.is) ~
+      ("lastname" -> author.lastName.is) //~
+      //("birthdate" -> StringHelper.dateToString(author.birthDate))
+    )
+  }
+
+  def toXML (author : Author) : Node = Xml.toXml(toJSON(author)).head
 }
 
 

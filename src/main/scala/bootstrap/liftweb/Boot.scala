@@ -10,8 +10,11 @@ import sitemap._
 import Loc._
 import mapper._
 
-import net.addictivesoftware.books.web.model._
+import net.liftweb.http.auth.{AuthRole,HttpBasicAuthentication,userRoles}
 
+
+import net.addictivesoftware.books.web.model._
+import net.addictivesoftware.books.web.rest._
 
 /**
  * A class that's instantiated early and run.  It allows the application
@@ -19,9 +22,10 @@ import net.addictivesoftware.books.web.model._
  */
 class Boot {
   def boot {
+
     if (!DB.jndiJdbcConnAvailable_?) {
       val vendor = 
-	new StandardDBVendor(Props.get("db.driver") openOr "org.h2.Driver",
+	      new StandardDBVendor(Props.get("db.driver") openOr "org.h2.Driver",
 			     Props.get("db.url") openOr 
 			     "jdbc:h2:lift_proto.db;AUTO_SERVER=TRUE",
 			     Props.get("db.user"), Props.get("db.password"))
@@ -49,11 +53,14 @@ class Boot {
     val authorBookLoc = Loc("AuthorBookpage", "author_books" :: Nil, "AuthorBooks", Hidden)
     val importIsbnLoc = Loc("ImportIsbnPage", "import_isbn" :: Nil, "ImportIsbn", If(User.loggedIn_? _, ""))
     val myBooksLoc = Loc("MyBooksPage", "mybooks" :: Nil, "MyBooks", If(User.loggedIn_? _, ""))
+    val enhanceLoc = Loc("EnhanceBook", "book_enhance" :: Nil, "EnhanceBook",  If(User.loggedIn_? _, ""))
 
 
-    var menu = Menu(homeLoc) :: Menu(aboutLoc) :: Menu(booksLoc) ::
+    val clockLoc = Loc("Clock", "clock" :: Nil, "Clock")
+
+    var menu = Menu(clockLoc) :: Menu(homeLoc) :: Menu(aboutLoc) :: Menu(booksLoc) ::
                Menu(bookLoc) :: Menu(authorsLoc) :: Menu(authorLoc) ::
-               Menu(authorBookLoc) :: Menu(importIsbnLoc) :: Menu(myBooksLoc) ::
+               Menu(authorBookLoc) :: Menu(importIsbnLoc) :: Menu(myBooksLoc) :: Menu(enhanceLoc) ::
                User.sitemap
    
     val crudMenu = Book.menus ::: Author.menus ::: News.menus ::: Content.menus
@@ -62,6 +69,10 @@ class Boot {
     // set the sitemap.  Note if you don't want access control for
     // each page, just comment this line out.
     LiftRules.setSiteMap(SiteMap(menu:_*))
+
+    //rest api hook up
+    LiftRules.dispatch.append(BookRestApi)
+    // Hook in our REST API auth
 
     //Show the spinny image when an Ajax call starts
     LiftRules.ajaxStart =
@@ -82,5 +93,35 @@ class Boot {
 
     // Make a transaction span the whole HTTP request
     S.addAround(DB.buildLoanWrapper)
+
+
+    // authentication setup
+    val roles = AuthRole("admin",
+                  AuthRole("writer",
+                    AuthRole("reader")))
+
+    LiftRules.httpAuthProtectedResource.append(BookRestApi.protection(roles))
+
+
+    LiftRules.authentication = HttpBasicAuthentication("Books") {
+      case (userEmail, userPass, _) => {
+        User.find(By(User.email, userEmail)).map { user =>
+          if (user.password.match_?(userPass)) {
+            println("API Key: " + S.param("key"))
+            User.logUserIn(user)
+            if (user.superUser) {
+              userRoles(AuthRole("admin"))
+            } else {
+              userRoles(AuthRole("reader"))
+            }
+            true
+          } else {
+            false
+          }
+        } openOr {
+          false
+        }
+      }
+    }
   }
 }
