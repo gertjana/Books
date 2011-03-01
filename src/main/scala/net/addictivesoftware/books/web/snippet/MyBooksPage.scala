@@ -1,6 +1,6 @@
 package net.addictivesoftware.books.web.snippet {
 
-import scala.xml.{NodeSeq, Text}
+import scala.xml.{NodeSeq}
 import net.liftweb._
 import common._
 import http._

@@ -1,7 +1,7 @@
 import sbt._
 
 class LiftProject(info: ProjectInfo) extends DefaultWebProject(info) {
-  val liftVersion = "2.2-SNAPSHOT"
+  val liftVersion = "2.3-SNAPSHOT"
 
   // uncomment the following if you want to use the snapshot repo
   val scalatoolsSnapshot = ScalaToolsSnapshots
@@ -18,6 +18,7 @@ class LiftProject(info: ProjectInfo) extends DefaultWebProject(info) {
     "org.scala-tools.testing" %% "specs" % "1.6.5" % "test->default",
     "com.h2database" % "h2" % "1.2.138",
     "mysql" % "mysql-connector-java" % "5.1.13" % "compile->default",
-    "log4j" % "log4j" % "1.2.16" % "compile->default"
+    "log4j" % "log4j" % "1.2.16" % "compile->default",
+    "org.slf4j" % "slf4j-log4j12" % "1.6.1" % "compile->default"
   ) ++ super.libraryDependencies
 }

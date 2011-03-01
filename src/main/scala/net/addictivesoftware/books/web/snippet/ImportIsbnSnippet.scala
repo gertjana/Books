@@ -9,7 +9,7 @@ import Helpers._
 import xml.{Text, NodeSeq}
 import net.addictivesoftware.books.web.model.{Book, BookUser, User}
 
-  class ImportIsbn {
+  class Importisbn {
     var count = 0
     var skipped = 0
     var notvalid = 0
