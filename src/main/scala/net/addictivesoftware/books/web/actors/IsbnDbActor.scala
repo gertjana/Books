@@ -3,7 +3,7 @@ package net.addictivesoftware.books.web.actors {
   import actors.Actor
   import net.addictivesoftware.books.web.model.{Book, Author}
 
-  class IsbnDbClient  {
+  abstract class IsbnDbClient  {
     val apiKey = "";
 
     def getAuthToken() : String {
