@@ -6,7 +6,7 @@ import mapper._
 import sitemap.Loc._
 import net.liftweb.json._
 import net.liftweb.json.JsonDSL._
-import net.liftweb.json.JsonAST._
+//import net.liftweb.json.JsonAST._
 import scala.xml.Node
 import net.addictivesoftware.books.web.util.StringHelper
 
