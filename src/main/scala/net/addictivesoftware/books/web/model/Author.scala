@@ -36,7 +36,8 @@ object Author extends Author with LongKeyedMetaMapper[Author] with CRUDify[Long,
     ("author" ->
       ("id" -> author.id.is) ~
       ("firstname" -> author.firstName.is) ~
-      ("lastname" -> author.lastName.is) //~
+      ("lastname" -> author.lastName.is) ~
+      ("nrofbooks" -> author.books.get.size)//~
       //("birthdate" -> StringHelper.dateToString(author.birthDate))
     )
   }
