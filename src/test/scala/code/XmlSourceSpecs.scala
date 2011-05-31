@@ -28,7 +28,7 @@ object XmlSourceSpecs extends Specification {
 	      file.endsWith(".xml")
 
 	    def handledXHtml(file: String) =
-	      file.endsWith(".html") || file.endsWith(".htm") || file.endsWith(".xhtml")
+        file.endsWith(".html") || file.endsWith(".htm") || file.endsWith(".xhtml")
 
 	    def wellFormed(file: File) {
 	      if (file.isDirectory)
