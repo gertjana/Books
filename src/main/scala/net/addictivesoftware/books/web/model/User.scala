@@ -8,8 +8,9 @@ class User extends MegaProtoUser[User] {
 
   override def toString = firstName + " " + lastName
 
-  object apiKey extends MappedString(this, 100)
-
+  object apiKey extends MappedString(this, 100) {
+    override def defaultValue = net.liftweb.util.Helpers.md5(email)
+  }
 }
 
 object User extends User with MetaMegaProtoUser[User] {
