@@ -1,0 +1,93 @@
+<ItemLookupResponse xmlns="http://webservices.amazon.com/AWSECommerceService/2009-07-01">
+    <OperationRequest>
+        <HTTPHeaders>
+            <Header Value="Java/1.6.0_22" Name="UserAgent"></Header>
+        </HTTPHeaders>
+        <RequestId>e6324be8-849c-4461-8df8-eeb2b67b433e</RequestId>
+        <Arguments>
+            <Argument Value="ItemLookup" Name="Operation"></Argument>
+            <Argument Value="AWSECommerceService" Name="Service"></Argument>
+            <Argument Value="fge2weDiyjm4IShxgURDgmaBLBsWTB8cDfuySN8oAWg=" Name="Signature"></Argument>
+            <Argument Value="Books" Name="AssociateTag"></Argument>
+            <Argument Value="2009-07-01" Name="Version"></Argument>
+            <Argument Value="0812548094" Name="ItemId"></Argument>
+            <Argument Value="0W0HWTWP4TSA1Q4YKHR2" Name="AWSAccessKeyId"></Argument>
+            <Argument Value="2011-01-07T15:02:30Z" Name="Timestamp"></Argument>
+            <Argument Value="ItemAttributes" Name="ResponseGroup"></Argument>
+        </Arguments>
+        <RequestProcessingTime>0.0211040000000000</RequestProcessingTime>
+    </OperationRequest>
+    <Items>
+        <Request>
+            <IsValid>True</IsValid>
+            <ItemLookupRequest>
+                <Condition>New</Condition>
+                <DeliveryMethod>Ship</DeliveryMethod>
+                <IdType>ASIN</IdType>
+                <MerchantId>Amazon</MerchantId>
+                <OfferPage>1</OfferPage>
+                <ItemId>0812548094</ItemId>
+                <ResponseGroup>ItemAttributes</ResponseGroup>
+                <ReviewPage>1</ReviewPage>
+                <ReviewSort>-SubmissionDate</ReviewSort>
+                <VariationPage>All</VariationPage>
+            </ItemLookupRequest>
+        </Request>
+        <Item>
+            <ASIN>0812548094</ASIN>
+            <DetailPageURL>http://www.amazon.com/Stone-Tears-Sword-Truth-2/dp/0812548094%3FSubscriptionId%3D0W0HWTWP4TSA1Q4YKHR2%26tag%3DBooks%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D0812548094</DetailPageURL>
+            <ItemLinks><ItemLink><Description>Technical Details</Description><URL>http://www.amazon.com/Stone-Tears-Sword-Truth-2/dp/tech-data/0812548094%3FSubscriptionId%3D0W0HWTWP4TSA1Q4YKHR2%26tag%3DBooks%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3D0812548094</URL></ItemLink><ItemLink><Description>Add To Baby Registry</Description><URL>http://www.amazon.com/gp/registry/baby/add-item.html%3Fasin.0%3D0812548094%26SubscriptionId%3D0W0HWTWP4TSA1Q4YKHR2%26tag%3DBooks%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3D0812548094</URL></ItemLink><ItemLink><Description>Add To Wedding Registry</Description><URL>http://www.amazon.com/gp/registry/wedding/add-item.html%3Fasin.0%3D0812548094%26SubscriptionId%3D0W0HWTWP4TSA1Q4YKHR2%26tag%3DBooks%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3D0812548094</URL></ItemLink><ItemLink><Description>Add To Wishlist</Description><URL>http://www.amazon.com/gp/registry/wishlist/add-item.html%3Fasin.0%3D0812548094%26SubscriptionId%3D0W0HWTWP4TSA1Q4YKHR2%26tag%3DBooks%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3D0812548094</URL></ItemLink><ItemLink><Description>Tell A Friend</Description><URL>http://www.amazon.com/gp/pdp/taf/0812548094%3FSubscriptionId%3D0W0HWTWP4TSA1Q4YKHR2%26tag%3DBooks%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3D0812548094</URL></ItemLink><ItemLink><Description>All Customer Reviews</Description><URL>http://www.amazon.com/review/product/0812548094%3FSubscriptionId%3D0W0HWTWP4TSA1Q4YKHR2%26tag%3DBooks%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3D0812548094</URL></ItemLink><ItemLink><Description>All Offers</Description><URL>http://www.amazon.com/gp/offer-listing/0812548094%3FSubscriptionId%3D0W0HWTWP4TSA1Q4YKHR2%26tag%3DBooks%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3D0812548094</URL></ItemLink></ItemLinks>
+            <ItemAttributes>
+                <Author>Terry Goodkind</Author>
+                <Binding>Mass Market Paperback</Binding>
+                <DeweyDecimalNumber>813.54</DeweyDecimalNumber>
+                <EAN>9780812548099</EAN>
+                <Feature>ISBN13: 9780812548099</Feature>
+                <Feature>Condition: New</Feature>
+                <Feature>Notes: BRAND NEW FROM PUBLISHER! BUY WITH CONFIDENCE, Over one million books sold! 98% Positive feedback. Compare our books, prices and service to the competition. 100% Satisfaction Guaranteed</Feature>
+                <ISBN>0812548094</ISBN>
+                <ItemDimensions>
+                    <Height Units="hundredths-inches">206</Height>
+                    <Length Units="hundredths-inches">687</Length>
+                    <Weight Units="hundredths-pounds">105</Weight>
+                    <Width Units="hundredths-inches">418</Width>
+                </ItemDimensions>
+                <Label>Tor Fantasy</Label>
+                <Languages>
+                    <Language>
+                        <Name>English</Name>
+                        <Type>Unknown</Type>
+                    </Language>
+                    <Language>
+                        <Name>English</Name>
+                        <Type>Original Language</Type>
+                    </Language>
+                    <Language>
+                        <Name>English</Name>
+                        <Type>Published</Type>
+                    </Language>
+                </Languages>
+                <ListPrice>
+                    <Amount>899</Amount>
+                    <CurrencyCode>USD</CurrencyCode>
+                    <FormattedPrice>$8.99</FormattedPrice>
+                </ListPrice>
+                <Manufacturer>Tor Fantasy</Manufacturer>
+                <NumberOfItems>1</NumberOfItems>
+                <NumberOfPages>992</NumberOfPages>
+                <PackageDimensions>
+                    <Height Units="hundredths-inches">220</Height>
+                    <Length Units="hundredths-inches">670</Length>
+                    <Weight Units="hundredths-pounds">45</Weight>
+                    <Width Units="hundredths-inches">410</Width>
+                </PackageDimensions>
+                <ProductGroup>Book</ProductGroup>
+                <ProductTypeName>ABIS_BOOK</ProductTypeName>
+                <PublicationDate>1996-08-15</PublicationDate>
+                <Publisher>Tor Fantasy</Publisher>
+                <Studio>Tor Fantasy</Studio>
+                <Title>Stone of Tears (The Sword of Truth #2)</Title>
+        </ItemAttributes>
+        </Item>
+    </Items>
+</ItemLookupResponse>
