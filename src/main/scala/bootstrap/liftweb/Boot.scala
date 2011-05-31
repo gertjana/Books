@@ -23,17 +23,19 @@ import net.addictivesoftware.books.web.rest._
 class Boot {
   def boot {
 
-    if (!DB.jndiJdbcConnAvailable_?) {
+    //if (!DB.jndiJdbcConnAvailable_?) {
       val vendor = 
-	      new StandardDBVendor(Props.get("db.driver") openOr "org.h2.Driver",
-			     Props.get("db.url") openOr 
-			     "jdbc:h2:lift_proto.db;AUTO_SERVER=TRUE",
-			     Props.get("db.user"), Props.get("db.password"))
+	      new StandardDBVendor(
+            Props.get("db.driver") openOr "org.h2.Driver",
+			      Props.get("db.url") openOr "jdbc:h2:lift_proto.db;AUTO_SERVER=TRUE",
+			      Props.get("db.user"),
+            Props.get("db.password")
+        )
 
       LiftRules.unloadHooks.append(vendor.closeAllConnections_! _)
 
       DB.defineConnectionManager(DefaultConnectionIdentifier, vendor)
-    }
+    //}
 
     // Use Lift's Mapper ORM to populate the database
     // you don't need to use Mapper to use Lift... use
@@ -86,6 +88,7 @@ class Boot {
     LiftRules.early.append(_.setCharacterEncoding("UTF-8"))
 
     // Sets the output to HTML5
+
     LiftRules.htmlProperties.default.set((r: Req) => new Html5Properties(r.userAgent))
 
     // What is the function to test if a user is logged in?
@@ -100,7 +103,7 @@ class Boot {
                   AuthRole("writer",
                     AuthRole("reader")))
 
-    LiftRules.httpAuthProtectedResource.append(BookRestApi.protection(roles))
+    //LiftRules.httpAuthProtectedResource.append(BookRestApi.protection(roles))
 
 
     LiftRules.authentication = HttpBasicAuthentication("Books") {
