@@ -1,19 +1,54 @@
 <lift:surround with="default" at="content"
                xmlns:lift="http://liftweb.net/"
-               xmlns:book="http://ns.addictivesoftware.net/books/book">
+               xmlns:book="http://ns.addictivesoftware.net/books/book"
+               xmlns:enhancebook="http://ns.addictivesoftware.net/books/enhancebook"
+               xmlns:clk="http://ns.addictivesoftware.net/books/clk">
     <lift:bookspage.detail>
+        <div id="my-div">bla</div>
         <div class="bookdetail">
             <div class="book">
-                <img book:imageurl="">
+                <img book:imageurl=""/>
                 <div class="info">
                     <h3><book:title></book:title></h3>
                     <h4><book:author></book:author></h4>
-                    <book:isbn></book:isbn><br>
-                    <book:publisher></book:publisher><br>
-                    <book:published></book:published><br>
+                    <book:isbn></book:isbn><br/>
+                    <book:publisher></book:publisher><br/>
+                    <book:published></book:published><br/>
                     <book:add></book:add>
+                    <book:enhance></book:enhance>
                 </div>
             </div>
         </div>
     </lift:bookspage.detail>
+    <br style="clear:both"/>
+        <div class="bookdetail">
+            <div class="book">
+                <img enhancebook:imageurl=""/>
+                <div class="info">
+                    <table>
+                        <tr>
+                            <td>Title</td>
+                            <td><span id="enhancedtitle"><enhancebook:title></enhancebook:title></span></td>
+                        </tr>
+                        <tr>
+                            <td>Author</td>
+                            <td><enhancebook:author></enhancebook:author></td>
+                        </tr>
+                        <tr>
+                            <td>Isbn</td>
+                            <td><enhancebook:isbn></enhancebook:isbn></td>
+                        </tr>
+                        <tr>
+                            <td>Publisher</td>
+                            <td><enhancebook:publisher></enhancebook:publisher></td>
+                        </tr>
+                        <tr>
+                            <td>Published date</td>
+                            <td><enhancebook:published></enhancebook:published></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
 </lift:surround>
