@@ -11,7 +11,7 @@ import net.liftweb.json._
 import net.liftweb.json.JsonDSL._
 //import net.liftweb.json.JsonAST._
 
-import scala.xml.Node
+import scala.xml._
 
 object BookRestApi extends RestHelper  {
   serve {
@@ -82,39 +82,6 @@ object BookRestApi extends RestHelper  {
           Author.findByKey(id) match {
             case Full(author) => {Author.toJSON(author)}
             case (_) => NotFoundResponse("Author with id " + id + " not found\r\n")
-          }
-        }
-    case "api" :: key :: "user" :: "books" :: "all" :: _ XmlGet _ =>
-        {
-          <TODO />
-        }
-    case "api" :: key :: "user" :: "books" :: "all" :: _ JsonGet _ =>
-        {
-          <TODO />
-        }
-    case "api" :: "auth" :: user :: pass :: _ XmlGet _ => {
-          User.find(By(User.email, user)) match {
-            case Full(user) =>
-              if (user.validated && user.password.match_?(pass)) {
-                <key>{user.apiKey.is}</key>
-              } else {
-                ResponseWithReason(ForbiddenResponse(""), "failed to authenticate");
-              }
-
-            case (_) => ResponseWithReason(UnauthorizedResponse(""), "failed to authenticate");
-          }
-        }
-    case "api" :: "auth" :: user :: pass :: _ JsonGet _ =>
-        {
-           User.find(By(User.email, user)) match {
-            case Full(user) =>
-              if (user.validated && user.password.match_?(pass)) {
-                JsonWrapper("key", user.apiKey.is);
-              } else {
-                ResponseWithReason(ForbiddenResponse(""), "failed to authenticate");
-              }
-
-            case (_) => ResponseWithReason(UnauthorizedResponse(""), "failed to authenticate");
           }
         }
 
