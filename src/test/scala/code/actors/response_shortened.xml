@@ -1,0 +1,18 @@
+<ItemLookupResponse xmlns="http://webservices.amazon.com/AWSECommerceService/2009-07-01">
+    <Items>
+        <Request>
+            <IsValid>True</IsValid>
+        </Request>
+        <Item>
+            <ASIN>0812548094</ASIN>
+            <ItemAttributes>
+                <Author>Terry Goodkind</Author>
+                <EAN>9780812548099</EAN>
+                <ISBN>0812548094</ISBN>
+                <PublicationDate>1996-08-15</PublicationDate>
+                <Publisher>Tor Fantasy</Publisher>
+                <Title>Stone of Tears (The Sword of Truth #2)</Title>
+        </ItemAttributes>
+        </Item>
+    </Items>
+</ItemLookupResponse>

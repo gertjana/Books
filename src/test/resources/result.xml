@@ -1,0 +1,26 @@
+<ItemLookupResponse xmlns="http://webservices.amazon.com/AWSECommerceService/2009-07-01">
+    <Items>
+        <Request>
+            <IsValid>True</IsValid>
+        </Request>
+        <Item><ASIN>0812548094</ASIN>
+            <ItemAttributes>
+                <Author>Terry Goodkind</Author><Binding>Mass Market Paperback</Binding>
+                <DeweyDecimalNumber>813.54</DeweyDecimalNumber>
+                <EAN>9780812548099</EAN>
+                <Feature>ISBN13: 9780812548099</Feature>
+                <Feature>Condition: New</Feature>
+                <Feature>Notes: BRAND NEW FROM PUBLISHER! BUY WITH CONFIDENCE, Over one million books sold! 98% Positive feedback. Compare our books, prices and service to the competition. 100% Satisfaction Guaranteed</Feature>
+                <ISBN>0812548094</ISBN>
+                <Label>Tor Fantasy</Label>
+                <Manufacturer>Tor Fantasy</Manufacturer>
+                <NumberOfItems>1</NumberOfItems>
+                <NumberOfPages>992</NumberOfPages>
+                <PublicationDate>1996-08-15</PublicationDate>
+                <Publisher>Tor Fantasy</Publisher>
+                <Studio>Tor Fantasy</Studio>
+                <Title>Stone of Tears (The Sword of Truth #2)</Title>
+            </ItemAttributes>
+        </Item>
+    </Items>
+</ItemLookupResponse>
