@@ -5,26 +5,54 @@ import net.liftweb._
 import common._
 import http._
 import util._
-import net.addictivesoftware.books.web.util._
 import Helpers._
 import net.addictivesoftware.books.web.model._
+import net.addictivesoftware.books.web.util._
+import net.addictivesoftware.books.web.remote._
 import mapper._
 import net.liftweb.http.PaginatorSnippet
+import js._
+import JsCmds._
+import SHtml._
 
 class Bookspage extends PaginatorSnippet[Book] {
+  //val logger = Logger(classOf[Bookspage])
+
   override def count = Book.count
   override def page = Book.findAll(StartAt(curPage*itemsPerPage), MaxRows(itemsPerPage))
 
   def detailPage = "book?id=";
 
-  def button(book : Book) : NodeSeq = {
+  def addButton(book : Book) : NodeSeq = {
     if (User.loggedIn_?) {
-      SHtml.hidden(() => addToCollection(book)) ++ <input type="submit" value="Add to collection"></input>
+      ajaxButton(Text("Add to collection"), {() =>
+        addToCollection(book)
+      })
     } else {
       <span></span>
     }
   }
 
+  def enhanceButton(book : Book) : NodeSeq = {
+      if (User.loggedIn_?) {
+        ajaxButton(Text("Enhance"), {() =>
+          try {
+            var enhancedBook = enhanceByIsbn(book.isbn.is)
+            SetHtml("my-div", Text(enhancedBook.title))
+          }
+          catch {
+            case e: Exception => {
+              println(e.getMessage())
+              SetHtml("my-div", Text(e.getMessage()))
+            }
+          }
+          finally {
+         }
+        })
+      } else {
+        <span></span>
+      }
+    }
 
   def list(in: NodeSeq) : NodeSeq = {
     
@@ -59,31 +87,36 @@ class Bookspage extends PaginatorSnippet[Book] {
                 AttrBindParam("imageurl",book.imageurl.is match {
                       case("") => "/images/nocover.gif";
                       case _ => book.imageurl.is }, "src"),
-                "add" -> button(book)
+                "add" -> addButton(book),
+                "enhance" -> enhanceButton(book)
+            )
           )
-        )
 
       case _ =>
         <p> no book found with this id</p>
     }
   }
 
-  def addToCollection(book : Book) = {
+  def enhanceByIsbn(isbn : String) : Book = {
+    val eb = new EnhanceBook
+    eb.enhanceBookByIsbn(isbn)
+  }
+
+  def addToCollection(book : Book) : JsCmd = {
     if (User.loggedIn_?) {
       BookUser.find(By(BookUser.user, User.currentUser), By(BookUser.book, book)) match {
-        case (Full(bookuser)) => {
-          S.warning("Book already part of your collection")
+        case (Full(bookUser)) => {
+          Alert("Book already part of your collection")
         }
         case (_) => {
           BookUser.create.user(User.currentUser).book(book).save
-          S.warning("added this book to your collection")
+          Alert("added this book to your collection")
         }
       }
     } else {
-
+      Alert("you need to be logged in")
     }
   }
-
 }
 
 }
