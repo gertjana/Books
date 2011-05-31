@@ -61,12 +61,12 @@ object BookRestApi extends RestHelper  {
     case "api" :: key :: "authors" :: "all" :: _ XmlGet _=>
       <Authors>
         {
-          Author.findAll.map(author => Author.toXML(author))
+          Author.findAll(OrderBy(Author.lastName, Ascending)).map(author => Author.toXML(author))
         }
       </Authors>
     case "api" :: key :: "authors" :: "all" :: _ JsonGet _=>
       JsonWrapper("authors",
-        Author.findAll.map(author => Author.toJSON(author))
+        Author.findAll(OrderBy(Author.lastName, Ascending)).map(author => Author.toJSON(author))
       )
 
     // single author
@@ -88,6 +88,36 @@ object BookRestApi extends RestHelper  {
         {
           <TODO />
         }
+    case "api" :: key :: "user" :: "books" :: "all" :: _ JsonGet _ =>
+        {
+          <TODO />
+        }
+    case "api" :: "auth" :: user :: pass :: _ XmlGet _ => {
+          User.find(By(User.email, user)) match {
+            case Full(user) =>
+              if (user.validated && user.password.match_?(pass)) {
+                <key>{user.apiKey.is}</key>
+              } else {
+                ResponseWithReason(ForbiddenResponse(""), "failed to authenticate");
+              }
+
+            case (_) => ResponseWithReason(UnauthorizedResponse(""), "failed to authenticate");
+          }
+        }
+    case "api" :: "auth" :: user :: pass :: _ JsonGet _ =>
+        {
+           User.find(By(User.email, user)) match {
+            case Full(user) =>
+              if (user.validated && user.password.match_?(pass)) {
+                JsonWrapper("key", user.apiKey.is);
+              } else {
+                ResponseWithReason(ForbiddenResponse(""), "failed to authenticate");
+              }
+
+            case (_) => ResponseWithReason(UnauthorizedResponse(""), "failed to authenticate");
+          }
+        }
+
   }
 
   def JsonWrapper(name : String, content : JValue) : JValue = {
