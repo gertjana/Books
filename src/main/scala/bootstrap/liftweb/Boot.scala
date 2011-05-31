@@ -74,7 +74,8 @@ class Boot {
 
     //rest api hook up
     LiftRules.dispatch.append(BookRestApi)
-    // Hook in our REST API auth
+    LiftRules.dispatch.append(UserRestApi)
+        // Hook in our REST API auth
 
     //Show the spinny image when an Ajax call starts
     LiftRules.ajaxStart =
