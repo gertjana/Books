@@ -7,6 +7,9 @@ class User extends MegaProtoUser[User] {
   def getSingleton = User
 
   override def toString = firstName + " " + lastName
+
+  object apiKey extends MappedString(this, 100)
+
 }
 
 object User extends User with MetaMegaProtoUser[User] {
@@ -15,7 +18,7 @@ object User extends User with MetaMegaProtoUser[User] {
 			       <lift:bind /></lift:surround>)
   // define the order fields will appear in forms and output
   override def fieldOrder = List(id, firstName, lastName, email,
-  locale, timezone, password)
+  locale, timezone, password, apiKey)
 
   override def skipEmailValidation = true
  
