@@ -1,55 +1,50 @@
 <!DOCTYPE HTML>
 <html xmlns:lift="http://liftweb.net/">
   <head>
-    	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    	<meta name="description" content="A pocket reference to your owned and other books">
-    	<meta name="keywords" content="books, isbn">
-	<title>Books</title>
+    	<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    	<meta name="description" content="A pocket reference to your owned and other books"/>
+    	<meta name="keywords" content="books, isbn"/>
+	    <title>Books</title>
         <script id="jquery" src="/classpath/jquery.js" type="text/javascript"></script>
         <script id="jquery.validate" src="/js/jquery.validate.min.js" type="text/javascript"></script>
         <script id="json" src="/classpath/json.js" type="text/javascript"></script>
-        <link rel="stylesheet" type="text/css" href="/css/screen.css">
-        <link rel="stylesheet" type="text/css" href="/css/main.css">
+        <link rel="stylesheet" type="text/css" href="/css/screen.css"/>
+        <link rel="stylesheet" type="text/css" href="/css/main.css"/>
   </head>
   <body>
     <div class="container">
       	<div class="header">
       		<div class="topimage">
-			<a href="/"><img src="/images/books.gif" width="100" alt="books"></a>
-		</div>
+			    <a href="/"><img src="/images/books.gif" width="100" alt="books"/></a>
+		    </div>
           	<div class="name">Books
               		<div class="short">A pocket reference to your owned and other books.</div>
-		</div><!--
-		<div class="userinfo">
-			<lift:Menu.item name="Login" />
-			<lift:Menu.item name="Loout" />
-			<lift:Menu.item name="CreateUser" />
-		</div> -->
-	</div>
+		    </div>
+    	</div>
 
-      <hr>
+      <hr/>
 
       <div class="column span-6 colborder sidebar">
-        <hr class="space">
+        <hr class="space"/>
         <lift:Menu.builder></lift:Menu.builder>
       </div>
 
       <div class="column span-17 last">
-          <div class="messages">
+        <div class="messages">
             <lift:Msgs showAll="true"></lift:Msgs>
-            <hr class="space">
+            <hr class="space"/>
         </div>
         <lift:bind name="content"></lift:bind>
       </div>
 
-      <hr>
+      <hr/>
       <div class="footer" style="text-align: center">
         <h4>Copyright 2010
           <a href="http://www.addictivesoftware.net">Addictive Software</a>
 	       Distributed under an Apache 2.0 License.</h4>
       </div>
       <a href="http://www.w3.org/html/logo/">
-        <img src="http://www.w3.org/html/logo/badge/html5-badge-h-css3-device-semantics.png" width="98" height="32" alt="HTML5 Powered with CSS3 / Styling, Device Access, and Semantics" title="HTML5 Powered with CSS3 / Styling, Device Access, and Semantics">
+        <img src="http://www.w3.org/html/logo/badge/html5-badge-h-css3-device-semantics.png" width="98" height="32" alt="HTML5 Powered with CSS3 / Styling, Device Access, and Semantics" title="HTML5 Powered with CSS3 / Styling, Device Access, and Semantics"/>
       </a>
     </div>
   </body>
