@@ -30,14 +30,80 @@ import scala.xml._
 
 object UserRestApi extends RestHelper  {
   serve {
-    case "api" :: key :: "user" :: "books" :: "all" :: _ XmlGet _ =>
+    //all books for the current user
+    case "api" :: key :: "user" :: "books" :: "all" :: _ XmlGet _ => {
+      <Books>
         {
-          <TODO />
+           Book.findAll(In(Book.id ,BookUser.book, By(BookUser.user, getUserIdFromKey(key))))
+              .map(book => book.toXml);
         }
-    case "api" :: key :: "user" :: "books" :: "all" :: _ JsonGet _ =>
-        {
-          <TODO />
+      </Books>
+    }
+    case "api" :: key :: "user" :: "books" :: "all" :: _ JsonGet _ => {
+      JsonWrapper("books",
+        Book.findAll(In(Book.id ,BookUser.book, By(BookUser.user, getUserIdFromKey(key))))
+            .map(book => Book.toJSON(book))
+      )
+    }
+    case "api" :: key :: "user" :: "books" :: AsLong(id) :: _ XmlGet _ => {
+      Book.find(By(Book.id, id), In(Book.id ,BookUser.book, By(BookUser.user, getUserIdFromKey(key)))) match {
+        case Full(book) => {
+          Book.toXML(book)
         }
+        case (_) => {
+          XmlResponse(errorNode("book with this id not found for current user"), 402, "application/xml", Nil);
+        }
+      }
+    }
+    case "api" :: key :: "user" :: "books" :: AsLong(id) :: _ JsonGet _ => {
+      Book.find(By(Book.id, id), In(Book.id ,BookUser.book, By(BookUser.user, getUserIdFromKey(key)))) match {
+        case Full(book) => {
+          Book.toJSON(book)
+        }
+        case (_) => {
+          XmlResponse(errorNode("book with this id not found for current user"), 402, "application/xml", Nil);
+        }
+      }
+    }
+    case "api" :: key :: "user" :: "authors" :: "all" :: _ XmlGet _ => {
+      var id = getUserIdFromKey(key)
+      <Authors> {
+        Book.findAll(In(Book.id ,BookUser.book, By(BookUser.user, id)))
+          .map(book => { book.authors.get })
+          .foldLeft(List[Author]())(_ ++ _)
+          .distinct
+          .map(author => Author.toXML(author, id))
+        }
+      </Authors>
+    }
+    case "api" :: key :: "user" :: "authors" :: "all" :: _ JsonGet _ => {
+      var id = getUserIdFromKey(key);
+      JsonWrapper ("authors", {
+        Book.findAll(In(Book.id ,BookUser.book, By(BookUser.user, id)))
+          .map(book => { book.authors.get })
+          .foldLeft(List[Author]())(_ ++ _)
+          .distinct
+          .map(author => Author.toJSON(author, id))
+        })
+    }
+
+    case "api" :: key :: "user" :: "authors" :: AsLong(id) :: "books" :: _ XmlGet _ => {
+      <Books> {
+        Book.findAll(
+                In(Book.id, BookUser.book, By(BookUser.user, getUserIdFromKey(key))),
+                In(Book.id, BookAuthor.book, By(BookAuthor.author, id)))
+            .map(book => book.toXml)
+      }
+      </Books>
+    }
+    case "api" :: key :: "user" :: "authors" :: AsLong(id) :: "books" :: _ JsonGet _ => {
+      JsonWrapper("books", {
+        Book.findAll(
+                In(Book.id, BookUser.book, By(BookUser.user, getUserIdFromKey(key))),
+                In(Book.id, BookAuthor.book, By(BookAuthor.author, id)))
+            .map(book => Book.toJSON(book))
+      })
+    }
     case "api" :: "auth" :: email :: password :: _ XmlGet _ => {
       User.find(By(User.email, email)) match {
         case Full(u) =>
@@ -77,5 +143,11 @@ object UserRestApi extends RestHelper  {
     <error>{text}</error>
   }
 
+  def getUserIdFromKey(key:String) : Long = {
+      User.find(By(User.uniqueId, key)) match {
+        case Full(user) => user.id
+        case (_) => 0
+      }
+  }
 }
 

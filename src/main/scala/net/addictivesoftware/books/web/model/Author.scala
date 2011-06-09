@@ -52,12 +52,30 @@ object Author extends Author with LongKeyedMetaMapper[Author] with CRUDify[Long,
       ("id" -> author.id.is) ~
       ("firstname" -> author.firstName.is) ~
       ("lastname" -> author.lastName.is) ~
-      ("nrofbooks" -> author.books.get.size)//~
-      //("birthdate" -> StringHelper.dateToString(author.birthDate))
+      ("nrofbooks" -> author.books.get.size)
+    )
+  }
+
+  def toJSON(author : Author, id : Long) : JValue = {
+    ("author" ->
+      ("id" -> author.id.is) ~
+      ("firstname" -> author.firstName.is) ~
+      ("lastname" -> author.lastName.is) ~
+      ("nrofbooks" -> getNrOfBooksForUser(author, id))
     )
   }
 
   def toXML (author : Author) : Node = Xml.toXml(toJSON(author)).head
+
+  def toXML (author : Author, id : Long) : Node = Xml.toXml(toJSON(author, id)).head
+
+  def getNrOfBooksForUser(author:Author, id: Long) : Long = {
+      Book.findAll(
+        In(Book.id, BookAuthor.book, By(BookAuthor.author, author.id)),
+        In(Book.id, BookUser.book, By(BookUser.user, id))
+      ).size
+  }
+
 }
 
 
