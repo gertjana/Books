@@ -104,35 +104,6 @@ object UserRestApi extends RestHelper  {
             .map(book => Book.toJSON(book))
       })
     }
-    case "api" :: "auth" :: email :: password :: _ XmlGet _ => {
-      User.find(By(User.email, email)) match {
-        case Full(u) =>
-          if (u.validated && u.password.match_?(password)) {
-            <key>{u.uniqueId.is}</key>
-          } else {
-            XmlResponse(errorNode("failed to authenticate or user is not validated"), 402, "application/xml", Nil);
-          }
-
-        case (_) =>
-          XmlResponse(errorNode("unknown email"), 402, "application/xml", Nil);
-
-      }
-    }
-    case "api" :: "auth" :: user :: pass :: _ JsonGet _ =>
-        {
-           User.find(By(User.email, user)) match {
-            case Full(user) =>
-              if (user.validated && user.password.match_?(pass)) {
-                JsonWrapper("key", user.uniqueId.is);
-              } else {
-                JsonResponse(JsonWrapper("error", "failed to authenticate or user is not validated"), Nil, Nil, 402);
-              }
-
-            case (_) =>
-              JsonResponse(JsonWrapper("error", "unknown email"), Nil, Nil, 402);
-          }
-        }
-
   }
 
   def JsonWrapper(name : String, content : JValue) : JValue = {
