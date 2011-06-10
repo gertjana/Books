@@ -72,6 +72,7 @@ object UserRestApi extends RestHelper  {
           .map(book => { book.authors.get })
           .foldLeft(List[Author]())(_ ++ _)
           .distinct
+          .sortWith((author1:Author, author2:Author) => author1.lastName.is < author2.lastName.is)
           .map(author => Author.toXML(author, id))
         }
       </Authors>
@@ -83,6 +84,7 @@ object UserRestApi extends RestHelper  {
           .map(book => { book.authors.get })
           .foldLeft(List[Author]())(_ ++ _)
           .distinct
+          .sortWith((author1:Author, author2:Author) => author1.lastName.is < author2.lastName.is)
           .map(author => Author.toJSON(author, id))
         })
     }
