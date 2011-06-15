@@ -21,7 +21,6 @@ import mapper._
 import sitemap.Loc._
 import net.liftweb.json._
 import net.liftweb.json.JsonDSL._
-//import net.liftweb.json.JsonAST._
 import scala.xml.Node
 import net.addictivesoftware.books.web.util.StringHelper
 
@@ -46,6 +45,10 @@ object Author extends Author with LongKeyedMetaMapper[Author] with CRUDify[Long,
 	override def createMenuLocParams = If(User.loggedIn_? _, RedirectResponse("/user_mgt/login")) :: super.createMenuLocParams
 	override def showAllMenuLocParams = If(User.loggedIn_? _, RedirectResponse("/user_mgt/login")) :: super.showAllMenuLocParams
 
+  def updateFromJSON(toUpdate: Author, json: JsonAST.JValue) : Author = {
+    super.updateFromJSON_!(toUpdate, json.asInstanceOf[JsonAST.JObject]);
+  }
+
   def toJSON (author : Author) : JValue = {
 
     ("author" ->
@@ -56,18 +59,19 @@ object Author extends Author with LongKeyedMetaMapper[Author] with CRUDify[Long,
     )
   }
 
-  def toJSON(author : Author, id : Long) : JValue = {
+  //calculates nrofbooks for the current user
+  def toJSON(author : Author, userid : Long) : JValue = {
     ("author" ->
       ("id" -> author.id.is) ~
       ("firstname" -> author.firstName.is) ~
       ("lastname" -> author.lastName.is) ~
-      ("nrofbooks" -> getNrOfBooksForUser(author, id))
+      ("nrofbooks" -> getNrOfBooksForUser(author, userid))
     )
   }
 
   def toXML (author : Author) : Node = Xml.toXml(toJSON(author)).head
 
-  def toXML (author : Author, id : Long) : Node = Xml.toXml(toJSON(author, id)).head
+  def toXML (author : Author, userid : Long) : Node = Xml.toXml(toJSON(author, userid)).head
 
   def getNrOfBooksForUser(author:Author, id: Long) : Long = {
       Book.findAll(

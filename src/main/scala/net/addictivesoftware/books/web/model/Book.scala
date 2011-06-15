@@ -54,6 +54,9 @@ object Book extends Book with LongKeyedMetaMapper[Book] with CRUDify[Long, Book]
 	override def createMenuLocParams = If(User.loggedIn_? _, RedirectResponse("/user_mgt/login")) :: super.createMenuLocParams
 	override def showAllMenuLocParams = If(User.loggedIn_? _, RedirectResponse("/user_mgt/login")) :: super.showAllMenuLocParams
 
+  def updateFromJSON(toUpdate: Book, json: JsonAST.JValue) : Book = {
+    super.updateFromJSON_!(toUpdate, json.asInstanceOf[JsonAST.JObject]);
+  }
 
   def toJSON (book : Book) : JValue = {
 
