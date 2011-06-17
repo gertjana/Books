@@ -28,7 +28,7 @@ import net.liftweb.json.JsonDSL._
 
 import scala.xml._
 
-object UserAuthRestApi extends RestHelper  {
+object UserAuthRestApi extends RestHelper with RestUtils {
   serve {
     case "api" :: "auth" :: email :: password :: _ XmlGet _ => {
       User.find(By(User.email, email)) match {
@@ -44,35 +44,19 @@ object UserAuthRestApi extends RestHelper  {
 
       }
     }
-    case "api" :: "auth" :: user :: pass :: _ JsonGet _ =>
-        {
-           User.find(By(User.email, user)) match {
-            case Full(user) =>
-              if (user.validated && user.password.match_?(pass)) {
-                JsonWrapper("key", user.uniqueId.is);
-              } else {
-                JsonResponse(JsonWrapper("error", "failed to authenticate or user is not validated"), Nil, Nil, 402);
-              }
-
-            case (_) =>
-              JsonResponse(JsonWrapper("error", "unknown email"), Nil, Nil, 402);
+    case "api" :: "auth" :: user :: pass :: _ JsonGet _ => {
+       User.find(By(User.email, user)) match {
+        case Full(user) =>
+          if (user.validated && user.password.match_?(pass)) {
+            JsonWrapper("key", user.uniqueId.is);
+          } else {
+            JsonResponse(JsonWrapper("error", "failed to authenticate or user is not validated"), Nil, Nil, 402);
           }
-        }
-  }
 
-  def JsonWrapper(name : String, content : JValue) : JValue = {
-    (name -> content)
-  }
-
-  def errorNode(text : String) : Elem = {
-    <error>{text}</error>
-  }
-
-  def getUserIdFromKey(key:String) : Long = {
-      User.find(By(User.uniqueId, key)) match {
-        case Full(user) => user.id
-        case (_) => 0
+        case (_) =>
+          JsonResponse(JsonWrapper("error", "unknown email"), Nil, Nil, 402);
       }
+    }
   }
 }
 

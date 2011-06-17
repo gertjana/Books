@@ -28,7 +28,7 @@ import net.liftweb.json.JsonDSL._
 
 import scala.xml._
 
-object BookRestApi extends RestHelper  {
+object BookRestApi extends RestHelper with RestUtils {
   serve {
     // single book
     case "api" :: key :: "books" :: AsLong(id) :: _ XmlGet _=>
@@ -99,17 +99,6 @@ object BookRestApi extends RestHelper  {
             case (_) => NotFoundResponse("Author with id " + id + " not found\r\n")
           }
         }
-
-  }
-
-  def JsonWrapper(name : String, content : JValue) : JValue = {
-    (name -> content)
-  }
-
-  def protection(roles : Role) : LiftRules.HttpAuthProtectedResourcePF = {
-    case Req(List("api", "books"), _, GetRequest) => roles.getRoleByName("reader")
-    case Req(List("api", "authors"), _, GetRequest) => roles.getRoleByName("reader")
-    case (_) => Empty
   }
 }
 

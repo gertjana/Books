@@ -28,7 +28,7 @@ import net.liftweb.json.JsonDSL._
 
 import scala.xml._
 
-object UserAddRestApi extends MyRestHelper  {
+object UserAddRestApi extends RestHelper with RestUtils {
   serve {
     case "api" :: key :: "user" :: "authors" :: "add" :: _ JsonPut json -> _ => {
       JsonWrapper("author", Author.toJSON(Author.updateFromJSON(Author.create, json).saveMe));

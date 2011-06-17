@@ -1,3 +1,5 @@
+package net.addictivesoftware.books.web.rest
+
 import net.liftweb.http.rest.RestHelper
 import net.liftweb.common.Full
 import net.liftweb.json._
@@ -6,10 +8,8 @@ import net.liftweb.mapper.By
 import net.addictivesoftware.books.web.model.User
 import scala.xml._
 
-object MyRestHelper extends RestHelper{
-  serve {
 
-  }
+trait RestUtils {
 
   def JsonWrapper(name : String, content : JValue) : JValue = {
     (name -> content)

@@ -28,7 +28,7 @@ import net.liftweb.json.JsonDSL._
 
 import scala.xml._
 
-object UserPutRestApi extends RestHelper  {
+object UserPutRestApi extends RestHelper with RestUtils {
   serve {
     case "api" :: key :: "user" :: "books" :: "add" :: AsLong(bookId) :: _ XmlGet _ => {
       var userId = getUserIdFromKey(key);
@@ -55,21 +55,6 @@ object UserPutRestApi extends RestHelper  {
         }
       }
     }
-  }
-
-  def JsonWrapper(name : String, content : JValue) : JValue = {
-    (name -> content)
-  }
-
-  def errorNode(text : String) : Elem = {
-    <error>{text}</error>
-  }
-
-  def getUserIdFromKey(key:String) : Long = {
-      User.find(By(User.uniqueId, key)) match {
-        case Full(user) => user.id
-        case (_) => 0
-      }
   }
 }
 
