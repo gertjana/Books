@@ -3,7 +3,3 @@ db.url=jdbc:mysql://localhost/Books
 db.user=books
 db.password=b00ks
 
-amazon.accesskeyid=0W0HWTWP4TSA1Q4YKHR2
-amazon.tag=Books
-amazon.secretkey=Hc48ulGtYV/9kjfjvsIhsuUUmFZWqkgImU4dauy2
-
